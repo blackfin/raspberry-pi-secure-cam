@@ -48,7 +48,7 @@ sudo cp ../nginx-rtmp-module-master/stat.xsl /etc/nginx/
 
 sudo service nginx start
 
-# Edit config, add streaming section name - streamer, enable HLS
+# Edit config, add streaming section name - streamer, enable HLS. The stream accessed thru /tmp
 sudo vim /etc/nginx/nginx.conf
 
 user www-data;
@@ -72,3 +72,18 @@ rtmp {
 
 [...]
 
+# Enable access to /tmp for browser
+Edit /etc/nginx/sites-enabled/default.conf and add 
+
+> server {
+
+> listen 80;
+>    listen [::]:80 ipv6only=on default_server;
+>    server_name localhost;
+>    index index.html index.htm index.php;
+
+>    location /hls {
+>        root /tmp;
+>    }
+
+> [...]
