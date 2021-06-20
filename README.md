@@ -11,7 +11,7 @@ For power supply on a bench I used PC power supply.
 <img src="/images/pi-external-power.jpg" alt="External power" width="640" height="854">
 
 For make your raspberry pi cooler, set up radiator.
-<img src="/images/pi-cooling.jpg" alt="cooling" width="640" height="854">
+<img src="/images/pi-cooling.jpg" alt="cooling" width="854" height="640">
 
 # Raspberry pi settings
 
