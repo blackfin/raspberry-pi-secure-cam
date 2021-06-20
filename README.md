@@ -10,7 +10,8 @@ For software part used: python+ffmpeg+nginx. For ffmpeg part using codec h264_om
 For power supply on a bench I used PC power supply.
 <img src="/images/pi-external-power.jpg" alt="External power" width="640" height="854">
 
-For make your raspberry pi cooler, set up radiator.  ![cooling](/images/pi-cooling.jpg).
+For make your raspberry pi cooler, set up radiator.
+<img src="/images/pi-cooling.jpg" alt="cooling" width="640" height="854">
 
 # Raspberry pi settings
 
