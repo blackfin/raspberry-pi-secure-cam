@@ -8,7 +8,7 @@ Camera support: up to 2592 x 1944 pixels, also supports 1080p30, 720p60 and 640x
 For case used Raspberry Pi HQ Camera Case from [case](https://learn.adafruit.com/raspberry-pi-hq-camera-case).
 For software part used: python+ffmpeg+nginx. For ffmpeg part using codec h264_omx for reduce cpu usage.
 For power supply on a bench I used PC power supply.
-<img src="/images/pi-external-power.jpg" alt="External power" width="400" height="400">
+<img src="/images/pi-external-power.jpg" alt="External power" width="640" height="854">
 
 For make your raspberry pi cooler, set up radiator.  ![cooling](/images/pi-cooling.jpg).
 
