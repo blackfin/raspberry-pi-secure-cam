@@ -91,39 +91,41 @@ sudo cp ../nginx-rtmp-module-master/stat.xsl /etc/nginx/
 # Edit config, add streaming section name - streamer, enable HLS. The stream accessed thru /tmp
 `sudo vim /etc/nginx/nginx.conf`
 
->user www-data;
->worker_processes auto;
->pid /run/nginx.pid;
+```javascript
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
 
->rtmp_auto_push on;
+rtmp_auto_push on;
 
->rtmp {
->    record all;
->    live on;
->    server {
->        listen 1935;
->        application streamer {
->            hls on;
->            hls_path /tmp/hls;
->            hls_fragment 5s;
->        }
->    }
->}
-
+rtmp {
+    record all;
+    live on;
+    server {
+        listen 1935;
+        application streamer {
+            hls on;
+            hls_path /tmp/hls;
+            hls_fragment 5s;
+        }
+    }
+}
+```
 
 # Enable access to /tmp for browser
 Edit `/etc/nginx/sites-enabled/default.conf` and add 
+```javascript
+ server {
 
-> server {
+ listen 80;
+    listen [::]:80 ipv6only=on default_server;
+    server_name localhost;
+    index index.html index.htm index.php;
 
-> listen 80;
->    listen [::]:80 ipv6only=on default_server;
->    server_name localhost;
->    index index.html index.htm index.php;
-
->    location /hls {
->        root /tmp;
->    }
+    location /hls {
+        root /tmp;
+    }
+```
 
 # ffmpeg prepare
 
