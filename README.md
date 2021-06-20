@@ -89,7 +89,9 @@ sudo cp ../nginx-rtmp-module-master/stat.xsl /etc/nginx/
 
 `sudo service nginx start`
 
-# Edit config, add streaming section name - streamer, enable HLS. The stream accessed thru /tmp
+Edit config, add streaming section name - streamer, enable HLS.
+The stream accessed thru /tmp
+
 `sudo vim /etc/nginx/nginx.conf`
 
 ```javascript
