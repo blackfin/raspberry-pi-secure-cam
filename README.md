@@ -31,7 +31,6 @@ Reboot.
 # Temperature sensor DS18B20 setup
 
 First, connect to raspberry pi board
-![temperature sensors](/images/pi-temperature-sensor.jpg)
 
 ![DS18b20 pin out](/images/ds18b20-pinout.png)
 ![Raspberry pi GPIO schematics](/images/GPIO-pinout.png)
