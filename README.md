@@ -5,7 +5,7 @@ For hw part it uses Raspberry Pi 3 model B v1.2 + IR-Cut Night Vision Camera OV5
 CCD size: 1/4 inch, Aperture(F): 1.8, Focal Length: 3.6 mm (adjustable), Field of View: 72 degrees.
 Camera support: up to 2592 x 1944 pixels, also supports 1080p30, 720p60 and 640x480p60/90 video more info: [camera](https://www.ovt.com/sensors/OV5658).
 
-For case used Raspberry Pi HQ Camera Case from [case](https://learn.adafruit.com/raspberry-pi-hq-camera-case).
+For case used Raspberry Pi HQ Camera Case from [this](https://learn.adafruit.com/raspberry-pi-hq-camera-case).
 For software part used: python+ffmpeg+nginx. For ffmpeg part using codec h264_omx for reduce cpu usage.
 To avoid limitations from power supply input, 500W PSU was used as power source, which can supply serious 17A on +5V output. 
 Measured voltage was +5.120 V at RPi pins. 
@@ -19,7 +19,7 @@ Covered SoC and IO chip
 
 # Raspberry pi settings
 
-Download OS for raspberry pi from [OS](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit) 
+Download OS for raspberry pi from [this](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit) 
 Write flash drive: sudo dd if=Raspberry.iso of=/dev/sdb status=progress
 Connect raspberry to external monitor throught HDMI
 Default login: pi password: raspberry
