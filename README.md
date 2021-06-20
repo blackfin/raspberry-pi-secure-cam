@@ -1,15 +1,14 @@
 # Live stream from raspberry pi camera with overlay from text file
 
-This project create live streaming service with video overlay. 
+This project create live streaming service with video overlay.
 For hw part it uses Raspberry Pi 3 model B v1.2 + IR-Cut Night Vision Camera OV5658 5MP 1080p + temperature sensor.
-CCD size: 1/4 inch, Aperture(F): 1.8, Focal Length: 3.6 mm (adjustable), Field of View: 72 degrees 
-Camera support: up to 2592 x 1944 pixels, also supports 1080p30, 720p60 and 640x480p60/90 video
-more info: [camera](https://www.ovt.com/sensors/OV5658)
+CCD size: 1/4 inch, Aperture(F): 1.8, Focal Length: 3.6 mm (adjustable), Field of View: 72 degrees.
+Camera support: up to 2592 x 1944 pixels, also supports 1080p30, 720p60 and 640x480p60/90 video more info: [camera](https://www.ovt.com/sensors/OV5658).
 
-For case used Raspberry Pi HQ Camera Case from [case](https://learn.adafruit.com/raspberry-pi-hq-camera-case)
+For case used Raspberry Pi HQ Camera Case from [case](https://learn.adafruit.com/raspberry-pi-hq-camera-case).
 For software part used: python+ffmpeg+nginx. For ffmpeg part using codec h264_omx for reduce cpu usage.
-For power supply on a bench I used PC power supply. ![External power](/images/pi-external-power.jpg)
-For make your raspberry pi cooler, set up radiator.  ![cooling](/images/pi-cooling.jpg)
+For power supply on a bench I used PC power supply. ![External power](/images/pi-external-power.jpg).
+For make your raspberry pi cooler, set up radiator.  ![cooling](/images/pi-cooling.jpg).
 
 # Raspberry pi settings
 
