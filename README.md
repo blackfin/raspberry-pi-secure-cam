@@ -55,11 +55,12 @@ Divide by 1000 for get celcius
 
 # Nginx setup
 
-Use Ubuntu or some ubuntu flawor. First remove apache:
+Use Ubuntu or some ubuntu flawor. First remove apache if it installed:
 `sudo apt remove apache2`
 and then install nginx 
 `sudo apt install nginx`
-Backup nginx and build it from source for support streaming
+
+Backup nginx and build new from source for support streaming operation
 `sudo mv /usr/sbin/nginx /usr/sbin/nginx.old`
 
 # Install support packages:
@@ -69,16 +70,23 @@ Backup nginx and build it from source for support streaming
 # Get nginx source, extract it:
 
 `wget http://nginx.org/download/nginx-1.17.8.tar.gz`
+`tar -xvf nginx-1.17.8.tar.gz nginx`
 
 # Download rtmp-module, extract:
-```
-wget https://github.com/arut/nginx-rtmp-module/zipball/master -O nginx-rtmp-module-master.zip
-unzip nginx-rtmp-module-master.zip -d nginx-rtmp-module-master
-```
+
+`wget https://github.com/arut/nginx-rtmp-module/zipball/master -O nginx-rtmp-module-master.zip`
+`unzip nginx-rtmp-module-master.zip -d nginx-rtmp-module-master`
+
+Note: nginx-rtmp-module-master contain subfolder arut-nginx-rtmp-module-xxx1873
+
 # Go to nginx sources, run this:
+
+`cd nginx`
+
+And then run:
+
 ```
-cd nginx
-./configure --prefix=/usr --add-module=../nginx-rtmp-module-master/ \
+./configure --prefix=/usr --add-module=../nginx-rtmp-module-master/arut-nginx-rtmp-module-xxx1873/ \
 --pid-path=/var/run/nginx.pid --conf-path=/etc/nginx/nginx.conf \
 --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
 --with-http_ssl_module
@@ -87,7 +95,7 @@ cd nginx
 ```
 make
 sudo make install
-sudo cp ../nginx-rtmp-module-master/stat.xsl /etc/nginx/
+sudo cp ../nginx-rtmp-module-master/arut-nginx-rtmp-module-xxx1873/stat.xsl /etc/nginx/
 ```
 # Run it
 
