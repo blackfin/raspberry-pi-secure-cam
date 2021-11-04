@@ -128,8 +128,8 @@ rtmp {
 ```
 
 # Enable access to /tmp for browser
-Edit `/etc/nginx/sites-enabled/default.conf` and add 
-```javascript
+Edit `/etc/nginx/sites-enabled/default` and add 
+```
  server {
 
  listen 80;
