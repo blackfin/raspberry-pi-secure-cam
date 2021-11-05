@@ -52,10 +52,14 @@ $ cat /sys/bus/w1/devices/28-011936686111/temperature
 3250
 ```
 Divide by 1000 for get celcius
+
 Next setup ffmpeg utility
+
 `sudo apt update`
 `sudo apt install -y ffmpeg`
+
 And check installed version:
+
 `ffmpeg -version`
 
 
