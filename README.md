@@ -52,6 +52,12 @@ $ cat /sys/bus/w1/devices/28-011936686111/temperature
 3250
 ```
 Divide by 1000 for get celcius
+Next setup ffmpeg utility
+`sudo apt update`
+`sudo apt install -y ffmpeg`
+And check installed version:
+`ffmpeg -version`
+
 
 # Nginx setup
 
@@ -98,7 +104,9 @@ sudo make install
 sudo cp ../nginx-rtmp-module-master/arut-nginx-rtmp-module-xxx1873/stat.xsl /etc/nginx/
 ```
 # Run it
-
+Check nginx config before start:
+`sudo nginx -t`
+If no erros start nginx
 `sudo service nginx start`
 
 Edit config, add streaming section name - streamer, enable HLS.
