@@ -169,3 +169,6 @@ for youtube streaming: /home/pi/username/streamYoutube.sh
 
 # Utility scripts
 camera.py used for read data from temperature sensor DS18B20 and write it to sensor.txt file
+
+# Another script
+`raspivid -o - -t 0 -w 800 -h 600 -fps 12  | cvlc -vvv stream:///dev/stdin --sout '#rtp{sdp=rtsp://:5000/}' :demux=h264`
