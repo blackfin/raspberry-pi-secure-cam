@@ -67,27 +67,66 @@ And check installed version:
 
 Use Ubuntu or some ubuntu flawor. First remove apache if it installed:
 `sudo apt remove apache2`
-and then install nginx 
+
+And then install nginx from repos. It configured systemd services add sites-enabled and etc.
+Later it will be used for updated version nginx buildede from sources.
+
 `sudo apt install nginx`
 
 Backup nginx and build new from source for support streaming operation
 `sudo mv /usr/sbin/nginx /usr/sbin/nginx.old`
+Check nginx setup:
+`sudo nginx -t`
+Console output:
+```
+pi@raspberrypi:~ $ sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+Start systemd service:
+`sudo service nginx start`
+Check nginx startup page:
+```
+pi@raspberrypi:~ $ curl -v 127.0.0.1
+* Expire in 0 ms for 6 (transfer 0x1f41960)
+*   Trying 127.0.0.1...
+* TCP_NODELAY set
+* Expire in 200 ms for 4 (transfer 0x1f41960)
+* Connected to 127.0.0.1 (127.0.0.1) port 80 (#0)
+> GET / HTTP/1.1
+> Host: 127.0.0.1
+> User-Agent: curl/7.64.0
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Server: nginx/1.14.2
+< Date: Sun, 10 Nov 2024 03:34:54 GMT
+< Content-Type: text/html
+< Content-Length: 612
+< Last-Modified: Sun, 10 Nov 2024 03:33:16 GMT
+< Connection: keep-alive
+< ETag: "6730297c-264"
+< Accept-Ranges: bytes
+```
+Stop for update:
+`sudo service nginx stop`
 
-# Install support packages:
+# Build Nginx from source for support rtmp module
 
+Install support packages:
 `sudo apt-get install libpcre3 libpcre3-dev libssl-dev`
 
-# Get nginx source, extract it:
-
+# Get nginx source
 `wget http://nginx.org/download/nginx-1.17.8.tar.gz`
+
+extract it to nginx folder:
 `tar -xvf nginx-1.17.8.tar.gz nginx`
 
-# Download rtmp-module, extract:
-
+# Download rtmp-module
 `wget https://github.com/arut/nginx-rtmp-module/zipball/master -O nginx-rtmp-module-master.zip`
+extract:
 `unzip nginx-rtmp-module-master.zip -d nginx-rtmp-module-master`
 
-Note: nginx-rtmp-module-master contain subfolder arut-nginx-rtmp-module-xxx1873
 
 # Go to nginx sources, run this:
 
@@ -96,21 +135,23 @@ Note: nginx-rtmp-module-master contain subfolder arut-nginx-rtmp-module-xxx1873
 And then run:
 
 ```
-./configure --prefix=/usr --add-module=../nginx-rtmp-module-master/arut-nginx-rtmp-module-xxx1873/ \
+./configure --prefix=/usr --add-module=../nginx-rtmp-module-master/arut-nginx-rtmp-module-xxx/ \
 --pid-path=/var/run/nginx.pid --conf-path=/etc/nginx/nginx.conf \
 --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
 --with-http_ssl_module
 ```
-# lets make it
+Note: nginx-rtmp-module-master contain subfolder arut-nginx-rtmp-module-xxx, rename to actual version in configure script.
+
+# make it
 ```
 make
 sudo make install
-sudo cp ../nginx-rtmp-module-master/arut-nginx-rtmp-module-xxx1873/stat.xsl /etc/nginx/
+sudo cp ../nginx-rtmp-module-master/arut-nginx-rtmp-module-xxx/stat.xsl /etc/nginx/
 ```
 # Run it
 Check nginx config before start:
 `sudo nginx -t`
-If no erros start nginx
+If no erros start nginx systemd service
 `sudo service nginx start`
 
 Edit config, add streaming section name - streamer, enable HLS.
