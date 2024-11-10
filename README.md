@@ -72,8 +72,6 @@ Later it will be used for updated version nginx buildede from sources.
 
 `sudo apt install nginx`
 
-Backup nginx and build new from source for support streaming operation
-`sudo mv /usr/sbin/nginx /usr/sbin/nginx.old`
 Check nginx setup:
 `sudo nginx -t`
 Console output:
@@ -111,6 +109,9 @@ Stop for update:
 `sudo service nginx stop`
 
 # Build Nginx from source for support rtmp module
+
+Backup nginx and build new from source for support streaming operation
+`sudo mv /usr/sbin/nginx /usr/sbin/nginx.old`
 
 Install support packages:
 `sudo apt-get install libpcre3 libpcre3-dev libssl-dev`
