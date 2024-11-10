@@ -120,13 +120,14 @@ Install support packages:
 `wget http://nginx.org/download/nginx-1.17.8.tar.gz`
 
 extract it to nginx folder:
-`tar -xvf nginx-1.17.8.tar.gz nginx`
+`tar -xvf nginx-1.17.8.tar.gz`
+rename folder:
+`mv nginx-1.17.8 nginx`
 
 # Download rtmp-module
 `wget https://github.com/arut/nginx-rtmp-module/zipball/master -O nginx-rtmp-module-master.zip`
 extract:
 `unzip nginx-rtmp-module-master.zip -d nginx-rtmp-module-master`
-
 
 # Go to nginx sources, run this:
 
