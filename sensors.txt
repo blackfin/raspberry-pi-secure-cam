@@ -1,0 +1,4 @@
+2024-11-13
+Temp sensor:29.125 C
+CPU temp=46.5'C
+ CPU load:1\%
