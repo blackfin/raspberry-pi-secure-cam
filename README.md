@@ -62,7 +62,7 @@ $ cat /sys/bus/w1/devices/XXXXXXXXX/temperature
 ```
 Divide by 1000 for get celcius
 
-Настройка env для работы python.
+Настройка env для работы python. Для raspios-bookworm-armhf-lite в новых версиях pip3 это обязательное условие.
 ```
 0: Go to the directory where you want to set up venv
 
@@ -102,18 +102,21 @@ sudo apt-get install python-pip or sudo apt-get install python3-pip
 
 Потом установить
 ```
-pip install opencv-python
-pip install w1thermsensor
+pip3 install opencv-python
+pip3 install w1thermsensor
 ```
 
 Для работы с сенсором (глобально)
 ```
 sudo apt-get install python3-w1thermsensor
 ```
-Проверить работы скрипта для чтения температуры с датчика и обновления файла sensor.txt
+Проверить работы скрипта для чтения температуры с датчика и обновления файла sensors.txt
 
 ```
-python temperText.py
+pi@raspberrypi:~/dev/raspberry-pi-secure-cam $ python3 temperText.py
+The sensor temperature is 29.125 celsius
+temp=46.5'C
+0.03 0.10 0.15 1/127 9223
 ```
 
 Next setup ffmpeg utility
@@ -268,7 +271,7 @@ rtmp {
 ```
 
 # Enable access to /tmp for browser
-Edit `/etc/nginx/sites-enabled/default` and add 
+Edit `/etc/nginx/sites-enabled/default` and add
 ```
  server {
 
