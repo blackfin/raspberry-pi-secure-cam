@@ -287,6 +287,7 @@ Edit `/etc/nginx/sites-enabled/default` and add
 ```
 Copy player.htm to local nginx http folder
 ```
+sudo cp player.html /var/www/html/
 ```
 
 Check nginx config before start:
