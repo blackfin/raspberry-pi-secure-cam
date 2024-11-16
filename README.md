@@ -1,12 +1,12 @@
-# Live stream from raspberry pi camera with overlay from text file
+# Raspberry pi live camera with overlays used ffmpeg, nginx and hw accelerated ffmpeg.
 
-This project create live streaming service with video overlay.
-For hw part it uses Raspberry Pi 3 model B v1.2 + IR-Cut Night Vision Camera OV5658 5MP 1080p + DS18B20 temperature sensor.
-Also regular USB can be used. Для просомтра в режиме реального времени есть плейер по адресу:
+This project create camera streaming service with overlays from text file.
+For hw part it uses Raspberry Pi 2,3 model B v1.2 + usb camera.
+For live streaming, there's a player at:
 ```
 http://IP/player.html
 ```
-Если для стриминга используется отдельный сервер без доменного имени то Disable CORS!! иначе player.html работать не будет, либо как вариант завести доменнное имя и использовать вместо IP.
+If a separate server without a domain name is used for streaming, Disable CORS!!! otherwise player.html will not work, or as an option, get a domain name and use it instead of IP.
 
 For software part used: python3+ffmpeg+nginx. For ffmpeg part using codec h264_omx for reduce cpu usage.
 To avoid limitations from power supply input, 500W PSU was used as power source, which can supply serious 17A on +5V output. 
@@ -48,7 +48,8 @@ sudo reboot
 
 First, connect to raspberry pi board
 
-![DS18b20 pin out](/images/ds18b20-pinout.png)![Raspberry pi GPIO schematics](/images/GPIO-pinout.png)![Connect ds18b20 to raspberry pi GPIO header](/images/pi-connect.jpg)![More GPIO header](/images/rpiblusleaf.png)
+<img src="/images/ds18b20-pinout.png" alt="DS18b20 pin out" width="320" height="240"><img src="/images/GPIO-pinout.png" alt="Raspberry pi GPIO schematics" width="320" height="240">
+<img src="/images/pi-connect.jpg" alt="Connect ds18b20 to raspberry pi GPIO header" width="320" height="240">
 
 Read data from sensor, first search it on a bus
 ```
@@ -62,7 +63,7 @@ $ cat /sys/bus/w1/devices/XXXXXXXXX/temperature
 ```
 Divide by 1000 for get celcius
 
-Настройка env для работы python. Для raspios-bookworm-armhf-lite в новых версиях pip3 это обязательное условие.
+Configuring env to run python. For raspios-bookworm-armhf-lite in newer versions of pip3 this is mandatory.
 ```
 0: Go to the directory where you want to set up venv
 
@@ -95,31 +96,33 @@ pip freeze > requirements.txt
 deactivate
 ```
 
-Для установки pip
+Install pip
 ```
 sudo apt-get install python-pip or sudo apt-get install python3-pip
 ```
 
-Потом установить
+Then install
 ```
 pip3 install opencv-python
 pip3 install w1thermsensor
 ```
 
-Для работы с сенсором (глобально)
+To work with the sensor (globally)
 ```
 sudo apt-get install python3-w1thermsensor
 ```
-Проверить работы скрипта для чтения температуры с датчика и обновления файла sensors.txt
+Test the script to read the temperature from the sensor and update the sensors.txt file.
 
 ```
-pi@raspberrypi:~/dev/raspberry-pi-secure-cam $ python3 temperText.py
+python3 temperText.py
 The sensor temperature is 29.125 celsius
 temp=46.5'C
 0.03 0.10 0.15 1/127 9223
 ```
 
-Next setup ffmpeg utility
+# Setup ffmpeg utility
+ffmeg used with h264_v4l2m2m hw decoder for reduce cpu usage.
+
 ```
 sudo apt update
 sudo apt install -y ffmpeg
@@ -128,19 +131,27 @@ And check installed version:
 
 `ffmpeg -version`
 
+Test capture h264 video from rpi camera
+
+`ffmpeg -f video4linux2 -input_format h264 -video_size 1280x720 -framerate 30 -i /dev/video0 -vcodec copy -an test.h264`
+
+Test capture jpg image from rpi camera
+
+`ffmpeg -f video4linux2 -input_format mjpeg -video_size 1280x720 -i /dev/video0 -vframes 1 -f mjpeg output.jpeg`
+
 # Nginx setup
 
-Use Ubuntu or some ubuntu flawor. First remove apache if it installed:
+First remove apache if it installed:
 `sudo apt remove apache2`
 
-And then install nginx from repos. It configured systemd services add sites-enabled and etc.
+And then install nginx from repos. It configured systemd services, sites-enabled and etc.
 Later it will be used for updated version nginx buildede from sources.
 
 `sudo apt install nginx`
 
 Check nginx setup:
 `sudo nginx -t`
-Console output:
+Example console output:
 ```
 pi@raspberrypi:~ $ sudo nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
@@ -186,7 +197,7 @@ Install support packages:
 sudo apt-get install libpcre3 libpcre3-dev libssl-dev
 ```
 
-Дополнительный пакет для Linux raspberrypi 6.6.51+rpt-rpi-v7 #1 SMP Raspbian 1:6.6.51-1+rpt3 (2024-10-08) armv7l GNU/Linux
+Optional package for Linux raspberrypi 6.6.6.51+rpt-rpi-v7 #1 SMP Raspbian 1:6.6.6.51-1+rpt3 (2024-10-08) armv7l GNU/Linux
 ```
 sudo apt install zlib1g-dev
 ```
@@ -201,7 +212,7 @@ rename folder:
 `mv nginx-1.17.8 nginx`
 
 # Download rtmp-module
-Готового модуля nginx-plus-module-rtmp нету не то, что на Raspberry Pi, но даже на моей стандартной десктопной Ubuntu.
+The ready-made nginx-plus-module-rtmp module is not available not only on Raspberry Pi, but even on my standard desktop Ubuntu.
 
 `wget https://github.com/arut/nginx-rtmp-module/zipball/master -O nginx-rtmp-module-master.zip`
 
@@ -232,13 +243,15 @@ sudo cp ../nginx-rtmp-module-master/arut-nginx-rtmp-module-2fb11df/stat.xsl /etc
 # Run it
 Check nginx config before start:
 `sudo nginx -t`
-Если есть ошибки, такое бывает на некоторых версия nginx, вида:
+If there are errors, this happens on some version of nginx, kind of:
+
 ```
 pi@raspberrypi:~/dev/nginx $ sudo nginx -t
 nginx: [emerg] dlopen() "/usr/modules/ngx_http_geoip_module.so" failed (/usr/modules/ngx_http_geoip_module.so: cannot open shared object file: No such file or directory) in /etc/nginx/modules-enabled/50-mod-http-geoip.conf:1
 nginx: configuration file /etc/nginx/nginx.conf test failed
 ```
-из папки pi@raspberrypi:/etc/nginx/modules-enabled удалить все ненужные файлы *.conf.
+from the pi@raspberrypi:/etc/nginx/modules-enabled folder, delete all unnecessary *.conf files.
+
 ```
 sudo rm -v /etc/nginx/modules-enabled/*.conf
 ```
@@ -296,7 +309,7 @@ Check nginx config before start:
 If no erros start nginx systemd service
 `sudo service nginx start`
 
-Для того чтобы все работало в случае сбоя, используем скрипт restartDaemon.sh:
+To make everything work in case of failure, we use the restartDaemon.sh script:
 ```
 #!/bin/bash
 
@@ -351,7 +364,7 @@ if [ "X$S" == "X" ] ; then
 fi
 ```
 
-Прописываем его в «crontab -e» чтобы работал каждые 5 секунд (с долями минут в кронтабе сложно, поэтому так):
+Write it in “crontab -e” to run every 5 seconds (it's hard to do with fractions of minutes in crontab, so that's how it works):
 ```
 * * * * * for ((i=0;i<12;i++)); do /usr/bin/bash /home/pi/restartDaemon.sh & /usr/bin/sleep 5; done
 ```
