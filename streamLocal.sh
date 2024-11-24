@@ -2,10 +2,10 @@
 
 while true ; do
 
-/usr/bin/ffmpeg -f video4linux2 -i /dev/video0 \
+/usr/bin/ffmpeg -f video4linux2 -video_size 640x480 -framerate 30 -i /dev/video0 \
 \
 -filter_complex "amovie='./sound.mp3':loop=999,asetpts=N/SR/TB,\
-aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,volume=0.8" \
+aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,volume=0.1" \
 \
 -vf drawtext="fontfile=OpenSans.ttf:textfile='./sensors.txt':reload=1:fontsize=18:\
 fontcolor=white:borderw=3:bordercolor=black:x=10:y=10" \
