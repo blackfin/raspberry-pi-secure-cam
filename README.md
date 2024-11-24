@@ -1,4 +1,4 @@
-# Raspberry pi live camera with overlays used ffmpeg, nginx and hw accelerated ffmpeg.
+# Video streaming service with overlays using ffmpeg, nginx and rpi hw acceleration.
 
 This project create camera streaming service with overlays from text file.
 For hw part it uses Raspberry Pi 2,3 model B v1.2 + usb camera.
@@ -6,6 +6,8 @@ For live streaming, there's a player at:
 ```
 http://IP/player.html
 ```
+<img src="/images/screen.jpg" alt="WEb view">
+
 If a separate server without a domain name is used for streaming, Disable CORS!!! otherwise player.html will not work, or as an option, get a domain name and use it instead of IP.
 
 For software part used: python3+ffmpeg+nginx. For ffmpeg part using codec h264_omx for reduce cpu usage.
@@ -13,7 +15,7 @@ To avoid limitations from power supply input, 500W PSU was used as power source,
 Measured voltage was +5.120 V at RPi pins. Connection between Pi and PSU was done using short cable with AWG18 wires. For make your raspberry pi cooler, set up aluminum heat-sink. 
 Covered SoC and IO chip
 
-<img src="/images/pi-external-power.jpg" alt="External power" width="320" height="240"><img src="/images/pi-cooling.jpg" alt="cooling" width="320" height="240">
+<img src="/images/pi-cooling.jpg" alt="cooling">
 
 # Raspberry pi settings
 
