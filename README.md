@@ -149,6 +149,34 @@ Test capture jpg image from rpi camera
 
 `ffmpeg -f video4linux2 -input_format mjpeg -video_size 1280x720 -i /dev/video0 -vframes 1 -f mjpeg output.jpeg`
 
+For all possible options check https://github.com/FFmpeg/FFmpeg/blob/master/libavcodec/avcodec.h#L1587
+
+For Pi camera use Buster version of Raspberry Pi OS. In case get error:
+```
+[video4linux2,v4l2 @ 0xd224e0] ioctl(VIDIOC_STREAMON): Invalid argument
+/dev/video0: Invalid argument
+```
+
+Note: OMX has been deprecated under Raspberry Pi OS Bullseye. Use h264_v4l2m2m.
+
+```
+# Use ffmpeg to encode video with specified profile and level
+ffmpeg_command = [
+    'ffmpeg',
+    '-f', 'rawvideo',
+    '-pix_fmt', 'yuv420p',  # Change to YUV 4:2:0 pixel format
+    '-s', '640x480',  # Frame size
+    '-r', '30',  # Frame rate
+    '-i', '-',  # Input from stdin
+    '-c:v', 'libx264',  # Use H.264 codec or h264_v4l2m2m
+    '-profile:v', 66,  # Set profile to baseline, code 66 see https://github.com/FFmpeg/FFmpeg/blob/master/libavcodec/avcodec.h#L1587
+    '-level', '5.0',  # Set level to 5
+    '-f', 'rtp',  # Output format
+    f'rtp://{rtp_host}:{rtp_port}'
+]
+```
+
+
 # Nginx setup
 
 First remove apache if it installed:
