@@ -17,7 +17,7 @@ sensor = W1ThermSensor()
 while True:
     today = date.today()
     temperature = sensor.get_temperature()
-    #print("The sensor temperature is %s celsius" % temperature)
+    print("The sensor temperature is %s celsius" % temperature)
 
     #os.system(tempCmd)
     #f = os.popen(tempCmd)
