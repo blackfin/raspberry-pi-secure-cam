@@ -66,11 +66,18 @@ $ cat /sys/bus/w1/devices/XXXXXXXXX/temperature
 Divide by 1000 for get celcius
 
 # Configure python env
+Install dependencys
+```
+sudo apt install -y python3-venv
+sudo apt install python3-pip
+sudo apt install -y build-essential libssl-dev libffi-dev python3-dev
+```
 
-Install pip
+Create directory .venv in project folder. Run command:
 ```
-sudo apt-get install python-pip or sudo apt-get install python3-pip
+python -m venv .venv
 ```
+
 Activate a shell with the Python dependencies installed:
 ```
 source .venv/bin/activate
