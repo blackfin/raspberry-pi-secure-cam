@@ -406,7 +406,8 @@ temperText.py used for read data from temperature sensor DS18B20 and write it to
 `raspivid -o - -t 0 -w 800 -h 600 -fps 12  | cvlc -vvv stream:///dev/stdin --sout '#rtp{sdp=rtsp://:5000/}' :demux=h264`
 
 Copy video from rpi to host
-`scp pi@192.168.1.124:/home/pi/dev/raspberry-pi-secure-cam/\*.mp4 .`
+
+`scp pi@IP:/home/pi/dev/raspberry-pi-secure-cam/\*.mp4 .`
 
 # Python notes
 Configuring env to run python. For raspios-bookworm-armhf-lite in newer versions of pip3 this is mandatory.
