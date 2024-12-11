@@ -12,9 +12,9 @@ fontcolor=white:borderw=3:bordercolor=black:x=10:y=10" \
 \
 -c:v h264_v4l2m2m -profile:v 100 -r 24 \
 -bf 1 -b_strategy 0 -sc_threshold 0 -pix_fmt yuv420p \
--c:a aac -b:a 128k -b:v 16000k \
+-c:a aac -b:a 128k -ac 2 -b:v 16000k \
 \
--f flv rtmp://192.168.1.124/streamer/live
+-f flv -hls_time 4 -hls_playlist_type event rtmp://localhost/streamer/live
 
 #done
 

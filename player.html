@@ -12,7 +12,8 @@
 if(Hls.isSupported()) {
     var video = document.getElementById('video');
     var hls = new Hls();
-    hls.loadSource('http://localhost/hls/live.m3u8');
+//IP - use real ip for device like 192.168.1.2		
+    hls.loadSource('http://IP/hls/live.m3u8');
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED,function() { video.play(); });
 }
