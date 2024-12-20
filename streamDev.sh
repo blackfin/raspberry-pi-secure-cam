@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#while true ; do
+while true ; do
 
 /usr/bin/ffmpeg -hide_banner -f video4linux2 -video_size 640x480 -framerate 30 -i /dev/video0 \
 \
@@ -16,5 +16,5 @@ fontcolor=white:borderw=3:bordercolor=black:x=10:y=10" \
 \
 -f flv -hls_time 4 -hls_playlist_type event rtmp://localhost/streamer/live
 
-#done
+done
 
