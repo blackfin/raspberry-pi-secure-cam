@@ -65,45 +65,24 @@ $ cat /sys/bus/w1/devices/XXXXXXXXX/temperature
 ```
 Divide by 1000 for get celcius
 
-Configuring env to run python. For raspios-bookworm-armhf-lite in newer versions of pip3 this is mandatory.
+# Configure python env
+Install dependencys
 ```
-0: Go to the directory where you want to set up venv
+sudo apt install -y python3-venv
+sudo apt install python3-pip
+sudo apt install -y build-essential libssl-dev libffi-dev python3-dev
+```
 
-cd <path/to/dir>
+Create directory .venv in project folder. Run command:
+```
+python -m venv .venv
+```
 
-1: Create a new environment
-
-.venv is a directory to store everything about the virtual environment. The name can be anything, but I personally prefer using .venv.
-
-python -v venv .venv
-
-2: Activate the environment
-
+Activate a shell with the Python dependencies installed:
+```
 source .venv/bin/activate
-If the environment is successfully activated, every line of the Terminal shows (.venv).
-
-3: Use pip to install libraries
-
-# Newly install libraries
-pip install <library name>
-
-# Install libraries using requirements.txt
-pip install -r requirements.txt
-
-# Create requirements.txt
-pip freeze > requirements.txt
-
-4: Deactivate the environment
-
-deactivate
 ```
-
-Install pip
-```
-sudo apt-get install python-pip or sudo apt-get install python3-pip
-```
-
-Then install
+Then install additional dependencies:
 ```
 pip3 install opencv-python
 pip3 install w1thermsensor
@@ -425,3 +404,41 @@ temperText.py used for read data from temperature sensor DS18B20 and write it to
 
 # Another script
 `raspivid -o - -t 0 -w 800 -h 600 -fps 12  | cvlc -vvv stream:///dev/stdin --sout '#rtp{sdp=rtsp://:5000/}' :demux=h264`
+
+Copy video from rpi to host
+
+`scp pi@IP:/home/pi/dev/raspberry-pi-secure-cam/\*.mp4 .`
+
+# Python notes
+Configuring env to run python. For raspios-bookworm-armhf-lite in newer versions of pip3 this is mandatory.
+```
+0: Go to the directory where you want to set up venv
+
+cd <path/to/dir>
+
+1: Create a new environment
+
+.venv is a directory to store everything about the virtual environment. The name can be anything, but I personally prefer using .venv.
+
+python -v venv .venv
+
+2: Activate the environment
+
+source .venv/bin/activate
+If the environment is successfully activated, every line of the Terminal shows (.venv).
+
+3: Use pip to install libraries
+
+# Newly install libraries
+pip install <library name>
+
+# Install libraries using requirements.txt
+pip install -r requirements.txt
+
+# Create requirements.txt
+pip freeze > requirements.txt
+
+4: Deactivate the environment
+
+deactivate
+```

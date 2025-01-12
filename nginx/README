@@ -1,0 +1,21 @@
+How to create virtual hosts in nginx
+
+sudo mkdir -p /var/www/cam_1.com/html
+
+sudo chown -R $USER:$USER /var/www/cam_1.com/html
+
+vim /var/www/cam_1.com/html/index.html
+
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/cam_1.com
+
+sudo vim /etc/nginx/sites-available/cam_1.com
+
+sudo ln -s /etc/nginx/sites-available/cam_1.com /etc/nginx/sites-enabled/
+
+sudo vim /etc/nginx/nginx.conf
+
+sudo nginx -t
+
+sudo service nginx restart
+
+sudo service nginx status
