@@ -17,8 +17,8 @@
 
    .video-container {
        position: relative;
-       width: 80%;
-       height: 100vh;
+       width: 30%;
+       height: 50vh;
        margin: 0 auto;
        display: flex;
        align-items: center;
@@ -29,6 +29,7 @@
        position: relative;
        display: flex;
        justify-content: center;
+       flex-direction: column;
        margin-top: 50%;
    }
 
@@ -108,13 +109,15 @@
         <video id="video" muted autoplay playsinline controls></video>
         <canvas id="canvas"></canvas>
         <div id="fps-meter"></div>
-	<div class="download-button">
-	<a href="/download">Download saved video</a>	
-        <button hx-get="/downloadArchive" hx-swap="outerHTML" hx-trigger="click">
-            Download last archive!
-        </button>
-	</div>
+        
+        <div class="download-button">
+            <a href="/download">Download saved video</a>
+            <button disabled hx-get="/downloadArchive" hx-swap="outerHTML" hx-trigger="click">
+                    Download last archive!
+            </button>
+        </div>
     </div>
+
 
     <script>
         const getDevice = async () => {
